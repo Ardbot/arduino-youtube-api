@@ -1,10 +1,6 @@
-# arduino-youtube-api
+# arduino-youtube-api (Video)
 A wrapper for the [YouTube API](https://developers.google.com/youtube/v3/docs/) for Arduino (works on ESP8266)
-
-Currently the only implemented method is getting the channel statistics but it can be easily extended. Please raise an issue if there is a method you are looking for.
-
-![Imgur](http://i.imgur.com/FmXyW4E.png)
-
+![alt text](https://raw.githubusercontent.com/Ardbot/arduino-youtube-api/master/%D0%91%D0%B5%D0%B7%20%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8-1.jpg)
 ## Getting a Google Apps API key (Required!)
 
 * Create an application [here](https://console.developers.google.com)
@@ -31,5 +27,16 @@ and pass it a Bot token and a SSL Client (See the examples for more details)
     // WiFiSSLClient client; //For 101 boards
     WiFiClientSecure client; //For ESP8266 boards
     YoutubeApi bot(API_KEY, client);
+
+#UPD: Remaking. Display video statistics.
+Channel statistics does not show.
+
+Implemented by:
+* View Count
+* Comment
+* like
+* dislike
+
+it is necessary to place the channel id, specify the video id
 
 *NOTE:* This library has not been tested with the 101 boards as I do not have a compatible board. If you can help please let me know!

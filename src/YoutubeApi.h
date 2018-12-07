@@ -35,7 +35,7 @@ struct channelStatistics{
   long viewCount;
   long commentCount;
   long subscriberCount;
-  bool hiddenSubscriberCount;
+  long hiddenSubscriberCount; // была bool
   long videoCount;
 };
 
