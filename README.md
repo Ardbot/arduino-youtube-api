@@ -1,6 +1,6 @@
 # arduino-youtube-api (Video)
 A wrapper for the [YouTube API](https://developers.google.com/youtube/v3/docs/) for Arduino (works on ESP8266)
-![alt text](https://raw.githubusercontent.com/Ardbot/arduino-youtube-api/master/%D0%91%D0%B5%D0%B7%20%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8-1.jpg)
+![alt text](https://raw.githubusercontent.com/Ardbot/arduino-youtube-api/master/name.jpg)
 ## Getting a Google Apps API key (Required!)
 
 * Create an application [here](https://console.developers.google.com)
