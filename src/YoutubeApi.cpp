@@ -89,18 +89,18 @@ String YoutubeApi::sendGetToYoutube(String command) {
 }
 
 bool YoutubeApi::getChannelStatistics(String channelId){
-	String command="/youtube/v3/videos?part=statistics&id="+channelId; //If you can't find it(for example if you have a custom url) look here: https://www.youtube.com/account_advanced
+	String command="/youtube/v3/channels?part=statistics&id="+channelId; //If you can't find it(for example if you have a custom url) look here: https://www.youtube.com/account_advanced
 	if(_debug) { Serial.println(F("Closing client")); }
 	String response = sendGetToYoutube(command);       //recieve reply from youtube
 	DynamicJsonBuffer jsonBuffer;
 	JsonObject& root = jsonBuffer.parseObject(response);
 	if(root.success()) {
 		if (root.containsKey("items")) {
-			long subscriberCount = root["items"][0]["statistics"]["subscriberCount"]; // подписчики (не будут работать)
-			long viewCount = root["items"][0]["statistics"]["viewCount"]; // просмотры 1 видео
-			long commentCount = root["items"][0]["statistics"]["commentCount"]; // коммментарии 1 видео
-			long hiddenSubscriberCount = root["items"][0]["statistics"]["likeCount"]; // лайки
-			long videoCount = root["items"][0]["statistics"]["dislikeCount"]; // дизлайки
+			long subscriberCount = root["items"][0]["statistics"]["subscriberCount"];
+			long viewCount = root["items"][0]["statistics"]["viewCount"];
+			long commentCount = root["items"][0]["statistics"]["commentCount"];
+			long hiddenSubscriberCount = root["items"][0]["statistics"]["hiddenSubscriberCount"];
+			long videoCount = root["items"][0]["statistics"]["videoCount"];
 
 			channelStats.viewCount = viewCount;
 			channelStats.subscriberCount = subscriberCount;
@@ -108,11 +108,31 @@ bool YoutubeApi::getChannelStatistics(String channelId){
 			channelStats.hiddenSubscriberCount = hiddenSubscriberCount;
 			channelStats.videoCount = videoCount;
 
-
 			return true;
 		}
 	}
 
+	return false;
+}
+bool YoutubeApi::getVideoStatistics(String VideoId) {
+	String command = "/youtube/v3/videos?part=statistics&id=" + VideoId; //If you can't find it(for example if you have a custom url) look here: https://www.youtube.com/account_advanced
+	String response = sendGetToYoutube(command); //receive reply from youtube
+	DynamicJsonBuffer jsonBuffer;
+	JsonObject& root = jsonBuffer.parseObject(response);
+	if (root.success()) {
+		if (root.containsKey("items")) {
+			long oneviewCount = root["items"][0]["statistics"]["viewCount"];
+			long onecommentCount = root["items"][0]["statistics"]["commentCount"];
+			long likeCount = root["items"][0]["statistics"]["likeCount"];
+			long dislikeCount = root["items"][0]["statistics"]["dislikeCount"];
+
+			videoStats.oneviewCount = oneviewCount;  // Количество  просмотров 1 видео		
+			videoStats.onecommentCount = onecommentCount; // Количество комментариев к видео
+			videoStats.likeCount = likeCount; // Лайки
+			videoStats.dislikeCount = dislikeCount; 	//	Дизлайки
+			return true;
+		}
+	}
 	return false;
 }
 

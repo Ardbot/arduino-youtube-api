@@ -31,29 +31,43 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #define YTAPI_TIMEOUT 1500
 
 
-struct channelStatistics{
-  long viewCount;
-  long commentCount;
-  long subscriberCount;
-  long hiddenSubscriberCount; // была bool
-  long videoCount;
+struct channelStatistics {
+
+	//Статистика канала
+	long viewCount;
+	long commentCount;
+	long subscriberCount;
+	bool hiddenSubscriberCount;
+	long videoCount;
+};
+
+// Статистика видео
+struct videoStatistics {
+
+	long oneviewCount; // Просмотры
+	long onecommentCount; //	Комментарии
+	long likeCount;	//	Лайки
+	long dislikeCount;	//	Дизлайки
 };
 
 class YoutubeApi
 {
-  public:
-    YoutubeApi (String apiKey, Client &client);
-    String sendGetToYoutube(String command);
-    bool getChannelStatistics(String channelId);
-    channelStatistics channelStats;
-    bool _debug = false;
+public:
+	YoutubeApi(String apiKey, Client &client);
+	String sendGetToYoutube(String command);
+	bool getChannelStatistics(String channelId); // Статистика по каналу (Подписки, просмотры, кол-во видео)
+	bool getVideoStatistics(String VideoId); // статистика видео
 
-  private:
-    String _apiKey;
-    Client *client;
-    const int maxMessageLength = 1000;
-    bool checkForOkResponse(String response);
-    void closeClient();
+	channelStatistics channelStats;
+	videoStatistics videoStats;
+	bool _debug = false;
+
+private:
+	String _apiKey;
+	Client *client;
+	const int maxMessageLength = 1000;
+	bool checkForOkResponse(String response);
+	void closeClient();
 };
 
 #endif
